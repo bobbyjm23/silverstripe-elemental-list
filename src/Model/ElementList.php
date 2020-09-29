@@ -22,6 +22,10 @@ class ElementList extends BaseElement
         'Elements'
     ];
 
+    private static $db = [
+        "HeadingStyling" =>  "Enum('H2,H3,H4','H2')",
+        'Content' => 'HTMLText'
+    ];
     private static $cascade_deletes = [
         'Elements'
     ];
@@ -48,6 +52,18 @@ class ElementList extends BaseElement
     {
         return _t(__CLASS__ . '.BlockType', 'List');
     }
+
+    public function getCMSFields()
+    {
+        $fields = parent::getCMSFields();
+        $fields->removeByName('NavigationLabel');
+        $fields->removeByName('ExtraClass');
+        $fields->removeByName('SubTitle');
+        $fields->removeByName('Layout');
+        $fields->removeByName('BlockTitleStyling');
+        return $fields;
+    }
+
 
     /**
      * @return DBField
